@@ -1,0 +1,21 @@
+//const listBrowser = ['Chrome', 'Firefox', 'Opera', 'OPR', 'Safari', 'MSIE', 'Trident', 'Edg']
+        /* enum Browser {
+            CHROME= '61', 
+            FIREFOX = '60' ,
+            OPRERA = '48',
+            SAFARI = '11', 
+            IE = '12', 
+            EDGE = '16'
+        }
+        const brwsrThresold = [
+            Browser.CHROME, Browser.FIREFOX, Browser.OPRERA, Browser.IE, Browser.EDGE
+        ] */
+
+ /* for (let index = 0; index < listBrowser.length; index++) {
+            curr_browser = listBrowser[index];
+            if(ua.indexOf(curr_browser) > -1){
+                var version=+ua.split(curr_browser+'/')[1].split('.')[0];
+                if(version>= +brwsrThresold[index]) return true;
+                break;
+            }   
+        } */

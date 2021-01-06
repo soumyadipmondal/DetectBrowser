@@ -1,0 +1,25 @@
+{
+  "name": "detectbrowser",
+  "version": "1.0.0",
+  "description": "DetectBrowser",
+  "main": "brwsr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soumyadipmondal/DetectBrowser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soumyadipmondal/DetectBrowser/issues"
+  },
+  "homepage": "https://github.com/soumyadipmondal/DetectBrowser#readme",
+  "dependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
