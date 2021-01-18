@@ -1,57 +1,48 @@
 "use strict";
+/* Goes in a separate interface file */
 exports.__esModule = true;
-exports.DetectBrowse = void 0;
-var DetectBrowse = /** @class */ (function () {
-    function DetectBrowse() {
+exports.DetectBrowser = exports.Browser = void 0;
+var Browser;
+(function (Browser) {
+    Browser["CHROME"] = "Chrome";
+    Browser["FIREFOX"] = "Firefox";
+    Browser["OPRERA"] = "Opera";
+    Browser["OPR"] = "OPR";
+    Browser["SAFARI"] = "Safari";
+    Browser["IE"] = "MSIE";
+    Browser["EDGE"] = "Edge";
+    Browser["EDG"] = "Edg";
+    Browser["TRIDENT"] = "rv";
+})(Browser = exports.Browser || (exports.Browser = {}));
+var DetectBrowser = /** @class */ (function () {
+    function DetectBrowser() {
+        this.brwsrThreshold = [
+            { browser: Browser.CHROME, thresholdVal: 61 },
+            { browser: Browser.FIREFOX, thresholdVal: 60 },
+            { browser: Browser.OPRERA, thresholdVal: 48 },
+            { browser: Browser.OPR, thresholdVal: 48 },
+            { browser: Browser.SAFARI, thresholdVal: 11 },
+            { browser: Browser.IE, thresholdVal: 12 },
+            { browser: Browser.TRIDENT, thresholdVal: 12 },
+            { browser: Browser.EDGE, thresholdVal: 16 },
+            { browser: Browser.EDG, thresholdVal: 16 }
+        ];
+        this.ua = window.navigator.userAgent;
+        this.flag = false;
     }
-    DetectBrowse.prototype.differentiaLoading = function () {
-        var _a;
-        var Browser;
-        (function (Browser) {
-            Browser["CHROME"] = "Chrome";
-            Browser["FIREFOX"] = "Firefox";
-            Browser["OPRERA"] = "Opera";
-            Browser["OPR"] = "OPR";
-            Browser["SAFARI"] = "Safari";
-            Browser["IE"] = "MSIE";
-            Browser["EDGE"] = "Edg";
-            Browser["TRIDENT"] = "Trident";
-        })(Browser || (Browser = {}));
-        var brwsrThresold = (_a = {},
-            _a[Browser.CHROME] = '61',
-            _a[Browser.FIREFOX] = '60',
-            _a[Browser.OPRERA] = '48',
-            _a[Browser.OPR] = '48',
-            _a[Browser.SAFARI] = '11',
-            _a[Browser.IE] = '11',
-            _a[Browser.TRIDENT] = '8',
-            _a[Browser.EDGE] = '16',
-            _a);
-        var ua = window.navigator.userAgent;
-        var version = [];
-        var flag = false;
-        var _loop_1 = function (property) {
-            if (ua.indexOf("" + property) > -1) {
-                version.push(+ua.split(property + "/")[1].split('.')[0]);
-                version.forEach(function (number) {
-                    if (number >= +("" + brwsrThresold[property]))
-                        flag = true;
-                });
+    DetectBrowser.prototype.differentiaLoading = function () {
+        for (var _i = 0, _a = this.brwsrThreshold; _i < _a.length; _i++) {
+            var brwsrDet = _a[_i];
+            if (this.ua.indexOf(brwsrDet.browser + '/') > -1 || this.ua.indexOf(brwsrDet.browser + ' ') > -1 || this.ua.indexOf(brwsrDet.browser + ':') > -1) {
+                console.log(brwsrDet.browser);
+                this.version = (this.ua.indexOf(brwsrDet.browser + '/') > -1) ? +this.ua.split(brwsrDet.browser + '/')[1].split('.')[0] : (this.ua.indexOf(brwsrDet.browser + ':') > -1) ? this.ua.split(brwsrDet.browser + ':')[1].split[0] : this.ua.split(brwsrDet.browser + ' ')[1].split[0];
+                return (this.version >= brwsrDet.thresholdVal) ? this.flag = !this.flag : this.flag;
             }
-        };
-        for (var property in brwsrThresold) {
-            _loop_1(property);
-        }
-        if (flag) {
-            return true;
-        }
-        else {
-            return false;
         }
     };
-    return DetectBrowse;
+    return DetectBrowser;
 }());
-exports.DetectBrowse = DetectBrowse;
-var retVal = new DetectBrowse();
+exports.DetectBrowser = DetectBrowser;
+var retVal = new DetectBrowser();
 var retType = retVal.differentiaLoading();
 console.log(retType);

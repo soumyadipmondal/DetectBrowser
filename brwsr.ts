@@ -1,52 +1,57 @@
+/* Goes in a separate interface file */
 
-export class DetectBrowse{
-    constructor(){}
-    differentiaLoading(){
-        enum Browser {
-            CHROME= 'Chrome', 
-            FIREFOX = 'Firefox' ,
-            OPRERA = 'Opera',
-            OPR = 'OPR',
-            SAFARI = 'Safari', 
-            IE = 'MSIE', 
-            EDGE = 'Edg',
-            TRIDENT = 'Trident'
-        }
-        const brwsrThresold = {
-            [Browser.CHROME]: '61', 
-            [Browser.FIREFOX]: '60', 
-            [Browser.OPRERA] : '48', 
-            [Browser.OPR] : '48', 
-            [Browser.SAFARI] : '11', 
-            [Browser.IE]: '11',
-            [Browser.TRIDENT]: '8', 
-            [Browser.EDGE]: '16'
-        }
-        var ua = window.navigator.userAgent;
-        let version =[];
-        let flag = false;
-        for (const property in brwsrThresold) {
-            if(ua.indexOf(`${property}`) > -1){
-                version.push(+ua.split(`${property}/`)[1].split('.')[0]);
-                version.forEach((number)=>{
-                    if(number>= +`${brwsrThresold[property]}`) flag = true;
-                })
-                
-            }  
-        }
+export interface BrowserMap{
+    browser: Browser,
+    thresholdVal: Number
+}
+export enum Browser {
+    CHROME= 'Chrome', 
+    FIREFOX = 'Firefox' ,
+    OPRERA = 'Opera',
+    OPR = 'OPR',
+    SAFARI = 'Safari', 
+    IE = 'MSIE', 
+    EDGE = 'Edge',
+    EDG = 'Edg',
+    TRIDENT = 'rv'
+}
 
-        if(flag){
-            return true;
-        }else{
-            return false
+export interface IDetectBrowser{
+    ua: string,
+    differentialLoading:()=> boolean
+}
+export class DetectBrowser{
+    ua: string;
+    private flag: boolean;
+    private brwsrThreshold: BrowserMap [];
+    private version: Number;
+    constructor(){
+         this.brwsrThreshold = [
+            { browser: Browser.CHROME, thresholdVal: 61},
+            { browser: Browser.FIREFOX, thresholdVal: 60}, 
+            { browser: Browser.OPRERA, thresholdVal: 48}, 
+            { browser: Browser.OPR, thresholdVal: 48}, 
+            { browser: Browser.SAFARI, thresholdVal: 11}, 
+            { browser: Browser.IE, thresholdVal: 12}, 
+            { browser: Browser.TRIDENT, thresholdVal: 12}, 
+            { browser: Browser.EDGE, thresholdVal: 16}, 
+            { browser: Browser.EDG, thresholdVal: 16}
+        ];
+        this.ua = window.navigator.userAgent;
+        this.flag = false;
+    }
+    differentiaLoading(): boolean{
+        for(let brwsrDet of this.brwsrThreshold){
+            if(this.ua.indexOf(brwsrDet.browser+'/') > -1 || this.ua.indexOf(brwsrDet.browser+' ') > -1 || this.ua.indexOf(brwsrDet.browser+':') > -1){
+                console.log(brwsrDet.browser)
+                this.version = (this.ua.indexOf(brwsrDet.browser+'/') > -1) ? +this.ua.split(brwsrDet.browser+'/')[1].split('.')[0] :(this.ua.indexOf(brwsrDet.browser+':') > -1) ? this.ua.split(brwsrDet.browser+':')[1].split[0]: this.ua.split(brwsrDet.browser+' ')[1].split[0];
+                return (this.version >= brwsrDet.thresholdVal) ? this.flag = !this.flag : this.flag;
+            }
         }
-
-
-        
     }
 }
 
-let retVal = new DetectBrowse();
+let retVal = new DetectBrowser();
 
 let retType = retVal.differentiaLoading();
-console.log(retType)
+console.log(retType);
