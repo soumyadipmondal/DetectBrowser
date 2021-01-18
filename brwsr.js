@@ -30,7 +30,7 @@ var DetectBrowser = /** @class */ (function () {
         this.ua = window.navigator.userAgent;
         this.flag = false;
     }
-    DetectBrowser.prototype.differentiaLoading = function () {
+    DetectBrowser.prototype.differentialLoading = function () {
         for (var _i = 0, _a = this.brwsrThreshold; _i < _a.length; _i++) {
             var brwsrDet = _a[_i];
             if (this.ua.indexOf(brwsrDet.browser + '/') > -1 || this.ua.indexOf(brwsrDet.browser + ' ') > -1 || this.ua.indexOf(brwsrDet.browser + ':') > -1) {
@@ -44,5 +44,5 @@ var DetectBrowser = /** @class */ (function () {
 }());
 exports.DetectBrowser = DetectBrowser;
 var retVal = new DetectBrowser();
-var retType = retVal.differentiaLoading();
+var retType = retVal.differentialLoading();
 console.log(retType);

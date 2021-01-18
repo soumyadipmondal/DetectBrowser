@@ -20,7 +20,7 @@ export interface IDetectBrowser{
     ua: string,
     differentialLoading:()=> boolean
 }
-export class DetectBrowser{
+export class DetectBrowser implements IDetectBrowser{
     ua: string;
     private flag: boolean;
     private brwsrThreshold: BrowserMap [];
@@ -40,7 +40,7 @@ export class DetectBrowser{
         this.ua = window.navigator.userAgent;
         this.flag = false;
     }
-    differentiaLoading(): boolean{
+    differentialLoading(): boolean{
         for(let brwsrDet of this.brwsrThreshold){
             if(this.ua.indexOf(brwsrDet.browser+'/') > -1 || this.ua.indexOf(brwsrDet.browser+' ') > -1 || this.ua.indexOf(brwsrDet.browser+':') > -1){
                 console.log(brwsrDet.browser)
@@ -53,5 +53,5 @@ export class DetectBrowser{
 
 let retVal = new DetectBrowser();
 
-let retType = retVal.differentiaLoading();
+let retType = retVal.differentialLoading();
 console.log(retType);
