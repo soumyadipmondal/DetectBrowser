@@ -4,6 +4,7 @@
   "description": "DetectBrowser",
   "main": "brwsr.js",
   "scripts": {
+    "start":"tsc brwsr.ts --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -16,6 +16,17 @@ var Browser;
 })(Browser = exports.Browser || (exports.Browser = {}));
 var DetectBrowser = /** @class */ (function () {
     function DetectBrowser() {
+        var _this = this;
+        this.differentialLoading = function () {
+            for (var _i = 0, _a = _this.brwsrThreshold; _i < _a.length; _i++) {
+                var brwsrDet = _a[_i];
+                if (_this.ua.indexOf(brwsrDet.browser) > -1) {
+                    _this.version = (_this.ua.indexOf(brwsrDet.browser + '/') > -1) ? +_this.ua.split(brwsrDet.browser + '/')[1].split('.')[0] : (_this.ua.indexOf(brwsrDet.browser + ':') > -1) ? +_this.ua.split(brwsrDet.browser + ':')[1].split('.')[0] : +_this.ua.split(brwsrDet.browser + ' ')[1].split('.')[0];
+                    console.log(_this.version);
+                    return (_this.version >= brwsrDet.thresholdVal) ? _this.flag = !_this.flag : _this.flag;
+                }
+            }
+        };
         this.brwsrThreshold = [
             { browser: Browser.CHROME, thresholdVal: 61 },
             { browser: Browser.FIREFOX, thresholdVal: 60 },
@@ -30,16 +41,6 @@ var DetectBrowser = /** @class */ (function () {
         this.ua = window.navigator.userAgent;
         this.flag = false;
     }
-    DetectBrowser.prototype.differentialLoading = function () {
-        for (var _i = 0, _a = this.brwsrThreshold; _i < _a.length; _i++) {
-            var brwsrDet = _a[_i];
-            if (this.ua.indexOf(brwsrDet.browser + '/') > -1 || this.ua.indexOf(brwsrDet.browser + ' ') > -1 || this.ua.indexOf(brwsrDet.browser + ':') > -1) {
-                console.log(brwsrDet.browser);
-                this.version = (this.ua.indexOf(brwsrDet.browser + '/') > -1) ? +this.ua.split(brwsrDet.browser + '/')[1].split('.')[0] : (this.ua.indexOf(brwsrDet.browser + ':') > -1) ? this.ua.split(brwsrDet.browser + ':')[1].split[0] : this.ua.split(brwsrDet.browser + ' ')[1].split[0];
-                return (this.version >= brwsrDet.thresholdVal) ? this.flag = !this.flag : this.flag;
-            }
-        }
-    };
     return DetectBrowser;
 }());
 exports.DetectBrowser = DetectBrowser;

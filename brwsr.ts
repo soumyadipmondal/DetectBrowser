@@ -40,11 +40,11 @@ export class DetectBrowser implements IDetectBrowser{
         this.ua = window.navigator.userAgent;
         this.flag = false;
     }
-    differentialLoading(): boolean{
+    differentialLoading = ():boolean =>{
         for(let brwsrDet of this.brwsrThreshold){
-            if(this.ua.indexOf(brwsrDet.browser+'/') > -1 || this.ua.indexOf(brwsrDet.browser+' ') > -1 || this.ua.indexOf(brwsrDet.browser+':') > -1){
-                console.log(brwsrDet.browser)
-                this.version = (this.ua.indexOf(brwsrDet.browser+'/') > -1) ? +this.ua.split(brwsrDet.browser+'/')[1].split('.')[0] :(this.ua.indexOf(brwsrDet.browser+':') > -1) ? this.ua.split(brwsrDet.browser+':')[1].split[0]: this.ua.split(brwsrDet.browser+' ')[1].split[0];
+            if(this.ua.indexOf(brwsrDet.browser) > -1){
+                this.version = (this.ua.indexOf(brwsrDet.browser+'/') > -1) ? +this.ua.split(brwsrDet.browser+'/')[1].split('.')[0] : (this.ua.indexOf(brwsrDet.browser+':') > -1) ? +this.ua.split(brwsrDet.browser+':')[1].split('.')[0]: +this.ua.split(brwsrDet.browser+' ')[1].split('.')[0];
+                console.log(this.version)
                 return (this.version >= brwsrDet.thresholdVal) ? this.flag = !this.flag : this.flag;
             }
         }
